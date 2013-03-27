@@ -1,0 +1,9 @@
+Gary's Module Problem
+
+With the provided BinaryTree interface, there is no way to call the elements of 
+the tree.  While it is possible to see if an element exists at a given index, 
+there is no way of extracting or modifying the element.  This makes it impossible 
+to create a tree composed of all of the original trees elements modified by the 
+given function f. Without Gary's module there is no way of completing the project
+on time. Our group will have to hope to Zardoz that the mean for Problem Set 7 is
+relatively low.
