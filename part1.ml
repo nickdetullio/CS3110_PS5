@@ -1,4 +1,3 @@
-
 let map (f : func) (t: tree) : (t :tree) -> 
 	let tsize = BinaryTree.size t in
 		let rec tree_cycle (func : func) (tree_index : int) (tr : tree) -> 
