@@ -5,5 +5,5 @@ the tree.  While it is possible to see if an element exists at a given index,
 there is no way of extracting or modifying the element.  This makes it impossible 
 to create a tree composed of all of the original trees elements modified by the 
 given function f. Without Gary's module there is no way of completing the project
-on time. Our group will have to hope to Zardoz that the mean for Problem Set 7 is
-relatively low.
+on time. Our group will have to hope that the mean for Problem Set 7 is low, 
+because it is impossible for us to finish the assignment with Gary at a prelim.
