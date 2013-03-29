@@ -81,3 +81,4 @@ apps/dna_sequencing
 .git/logs/refs/remotes/origin
 .git/logs/refs/heads
 /usr/local/lib/ocaml
+dna_data
