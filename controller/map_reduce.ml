@@ -3,7 +3,15 @@ open Worker_manager
 
 (* TODO implement these *)
 let map kv_pairs map_filename : (string * string) list = 
-  failwith "Go back whence you came! Trouble the soul of my Mother no more!"
+  let work_man = Worker_manager.intialize_mappers map_filename
+  let helper ele = 
+	let mapper = pop_worker work_man in
+	let (k,v) = ele in 
+	match Worker_manager.map mapper k v with 
+	| [Some l] -> l
+	| [None] -> failwith("Experienced an error")
+  List.flatten (List.map helper kv_pairs)
+  
 let combine kv_pairs : (string * string list) list = 
   failwith "You have been doomed ever since you lost the ability to love."
 let reduce kvs_pairs reduce_filename : (string * string list) list =
