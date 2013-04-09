@@ -24,6 +24,7 @@ let map kv_pairs map_filename : (string * string) list =
     Thread_pool.add_work helper thread_pool;
   done;
   Worker_manager.clean_up_workers work_man;
+  Thread_pool.destroy thread_pool;
   !output_list
   
 let combine kv_pairs : (string * string list) list = 
@@ -61,6 +62,7 @@ let reduce kvs_pairs reduce_filename : (string * string list) list =
     Thread_pool.add_work helper thread_pool;
   done;
   Worker_manager.clean_up_workers work_man;
+  Thread_pool.destroy thread_pool;
   !output_list
 
 let map_reduce app_name mapper_name reducer_name kv_pairs =
