@@ -4,7 +4,7 @@ open Worker_manager
 let map kv_pairs map_filename : (string * string) list = 
   let work_queue = Queue.create in
   List.iter (Queue.push work_queue) kv_pairs;
-  let thread_pool = thread_pool.create in 
+  let thread_pool = Thread_pool.create in 
   let work_man = Worker_manager.intialize_mappers map_filename in
   let output_list = ref [] in
   let queue_lock = Mutex.create() in
@@ -27,12 +27,21 @@ let map kv_pairs map_filename : (string * string) list =
   !output_list
   
 let combine kv_pairs : (string * string list) list = 
-  failwith "You have been doomed ever since you lost the ability to love."
+  let hash_table = Hashtbl.create 10 in
+  let work_queue = Queue.create () in
+  while not (Queue.is_empty work_queue) do
+    let (k, v) = Queue.pop work_queue in
+    if Hashtbl.mem hash_table k 
+      then let (k, v_list) = Hashtbl.find hash_table k in 
+      Hashtbl.replace hash_table k (k, v :: v_list)
+    else Hashtbl.add hash_table k (k, [v]) 
+  done;
+  Hashtbl.fold (fun k (k, v_list) acc -> (k, v_list) :: acc) hash_table []
   
 let reduce kvs_pairs reduce_filename : (string * string list) list =
   let work_queue = Queue.create in
   List.iter (Queue.push work_queue) reduce_filename;
-  let thread_pool = thread_pool.create in 
+  let thread_pool = Thread_pool.create in 
   let work_man = Worker_manager.intialize_reducers map_filename in
   let output_list = ref [] in
   let queue_lock = Mutex.create() in
