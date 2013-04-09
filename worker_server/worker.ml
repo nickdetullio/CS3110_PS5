@@ -22,49 +22,63 @@ let rec handle_request client =
             (match program with
              | (None, error) -> if send_response client (Mapper (None, error))
                                   then handle_request client
-                                else failwith "InitMapper failed"
+                                else ()
              | (Some id, str) -> mappers := id :: !mappers;
-                                 if send_response client (Mapper (Some id, str)) 
-                                   then handle_request client
-                                 else failwith "InitMapper failed")
+                     begin
+                       if send_response client (Mapper (Some id, str)) 
+                         then handle_request client
+                       else ()
+                     end)
         | InitReducer source -> 
             let program = Program.build source in
               (match program with
-               | (None, error) -> if send_response client (Reducer (None, error))
-                                    then handle_request client
-                                  else failwith "InitMapper failed"
+               | (None, error) -> 
+                          begin
+                            if send_response client (Reducer (None, error))
+                              then handle_request client
+                            else ()
+                          end
                | (Some id, str) -> reducers := id :: !reducers;
-                                   if send_response client (Reducer (Some id, str)) 
-                                    then handle_request client
-                                   else failwith "InitMapper failed")
+                            begin
+                              if send_response client (Reducer (Some id, str)) 
+                                then handle_request client
+                              else ()
+                            end)
         | MapRequest (id, k, v) -> 
             (if not (List.mem id !mappers) then 
                                  begin
                                    if send_response client (InvalidWorker id)
                                      then handle_request client
-                                   else failwith "MapRequest failed"
+                                   else ()
                                  end
              else match Program.run id v with
-                  | None -> if send_response client (RuntimeError (id, v)) 
-                                then handle_request client
-                            else failwith "MapRequest failed"
-                  | Some result -> if send_response client (MapResults (id, result))
-                                     then handle_request client
-                                   else failwith "MapRequest failed")
+                  | None -> 
+                      if send_response client 
+                        (RuntimeError (id, "Failed MapRequest")) 
+                        then handle_request client
+                      else ()
+                  | Some result -> 
+                       begin
+                         if send_response client (MapResults (id, result))
+                           then handle_request client
+                         else ()
+                       end)
         | ReduceRequest (id, k, v) -> 
             (if not (List.mem id !reducers) then 
                         begin
                           if send_response client (InvalidWorker id)
                             then handle_request client
-                          else failwith "ReduceRequest failed"
+                          else ()
                         end
              else match Program.run id v with
-                  | None -> if send_response client (RuntimeError (id, List.hd v)) 
+                  | None -> if send_response client 
+                              (RuntimeError (id, "Failed ReduceRequest")) 
                               then handle_request client
-                            else failwith "ReduceRequest failed"
-                  | Some result -> if send_response client (ReduceResults (id, result))
+                            else ()
+                  | Some result -> if send_response client 
+                                     (ReduceResults (id, result))
                                      then handle_request client
-                                   else failwith "ReduceRequest failed") 
+                                   else ()) 
       end
   | None ->
       Connection.close client;
