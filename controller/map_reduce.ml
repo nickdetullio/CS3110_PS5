@@ -7,20 +7,20 @@ let map kv_pairs map_filename : (string * string) list =
   let thread_pool = thread_pool.create in 
   let work_man = Worker_manager.intialize_mappers map_filename in
   let output_list = ref [] in
-  let queue_lock = Mutex.create()
-  let output_lock = Mutex.create()
+  let queue_lock = Mutex.create() in
+  let output_lock = Mutex.create() in
   while not (Queue.is_empty work_queue) do
     let helper = 
 	    let mapper = Worker_manager.pop_worker work_man in
-		Mutex.lock queue_lock
+		Mutex.lock queue_lock;
 	    let (k, v) = Queue.push work_queue in 
-		Mutex.unlock queue_lock
+		Mutex.unlock queue_lock;
 	      match Worker_manager.map mapper k v with 
 	      | [Some l] -> Mutex.lock output_lock
-						output_list := List.append l !output_list
-						Mutex.unlock output_lock
-						Worker_manager.push_worker work_man
-	      | [None] -> failwith("Experienced an error") in
+						output_list := List.append l !output_list;
+						Mutex.unlock output_lock;
+						Worker_manager.push_worker work_man mapper
+	      | [None] -> Queue.push (k, v) in
     Thread_pool.add_work helper thread_pool;
   done;
   Worker_manager.clean_up_workers
