@@ -47,11 +47,12 @@ let rec handle_request client =
         | MapRequest (id, k, v) -> 
             (if not (List.mem id !mappers) then 
                                  begin
+                                  print_endline "id error";
                                    if send_response client (InvalidWorker id)
                                      then handle_request client
                                    else ()
                                  end
-             else match Program.run id v with
+             else match Program.run id (k, v) with
                   | None -> 
                       if send_response client 
                         (RuntimeError (id, "Failed MapRequest")) 
@@ -70,7 +71,7 @@ let rec handle_request client =
                             then handle_request client
                           else ()
                         end
-             else match Program.run id v with
+             else match Program.run id (k, v) with
                   | None -> if send_response client 
                               (RuntimeError (id, "Failed ReduceRequest")) 
                               then handle_request client
