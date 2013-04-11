@@ -64,9 +64,33 @@ let main (args : string array) : unit =
      * write them to the output file. TODO implement! *)
     (* These lines swallow the otherwise unused variables. You'll probably
      * want to use these variables. If not, make sure to delete them above *)
-    let _ = num_iterations
-    and _ = write_board in
-    failwith "Maria?"
+    let kv_pairs = ref [] in
+    let x_length = Array.length shared in
+    let y_length = Array.length shared.(0) in
+    for i = 0 to (x_length - 1) do
+      for j = 0 to (y_length - 1) do
+          kv_pairs := ((i, j), (x_length, y_length, shared.(i).(j))) :: !kv_pairs;
+      done;
+    done;
+    
+    let marshal_kvs = 
+      List.map (fun (k, v) -> (Util.marshal k, Util.marshal v)) in
+    let unmarshal_kvs = 
+      List.map (fun (k, v) -> (Util.unmarshal k, Util.unmarshal (List.hd v))) in
+      
+    let reduced = ref [] in
+    for i = 1 to num_iterations do
+      
+      reduced := 
+        unmarshal_kvs (Map_reduce.map_reduce 
+            "game_of_life" "mapper" "reducer" (marshal_kvs !kv_pairs));
+        
+      kv_pairs := List.map (fun ((x, y), v_list) -> 
+                              ((x, y), (x_length, y_length, v_list))) !reduced;
+      
+      List.iter (fun ((x, y), v) -> shared.(x).(y) <- v) !reduced;
+      write_board shared out_channel;
+    done;
   end
 in
 
