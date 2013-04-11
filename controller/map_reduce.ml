@@ -69,9 +69,9 @@ let map kv_pairs map_filename : (string * string) list =
           repeat_pending ()
         end in
   repeat_pending ();
-        
+  
+  Thread_pool.destroy thread_pool;            
   Worker_manager.clean_up_workers work_man;
-  Thread_pool.destroy thread_pool;
   
   !(fst output_list)
   
@@ -129,9 +129,10 @@ let reduce kvs_pairs reduce_filename : (string * string list) list =
         end in
   repeat_pending ();
   
-  Worker_manager.clean_up_workers work_man;
   Thread_pool.destroy thread_pool;
+  Worker_manager.clean_up_workers work_man;
   !(fst output_list)
+
 
 let map_reduce app_name mapper_name reducer_name kv_pairs =
   let mapper = Printf.sprintf "apps/%s/%s.ml" app_name mapper_name
