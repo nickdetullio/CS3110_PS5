@@ -27,11 +27,6 @@ let ts_append (list, lock) lst =
   Mutex.lock lock;
   list := List.append lst !list;
   Mutex.unlock lock
-                                        
-let ts_remove (list, lock) elt = 
-  Mutex.lock lock;
-  list := List.remove_assoc (fst elt) !list;
-  Mutex.unlock lock
                                 
 let ts_pop (list, lock) = 
   Mutex.lock lock;
@@ -44,10 +39,19 @@ let ts_list_isempty (list, lock) =
   let out = !list == [] in
   Mutex.unlock lock;
   out
-                                  
-let ts_mem (list, lock) elt = 
+
+let ts_remove (list, lock) elt =
+  Mutex.lock lock;
+  list := List.remove_assoc (fst elt) !list;      
+  Mutex.unlock lock                  
+                                                                                     
+let ts_mem_remove (list, lock) elt = 
   Mutex.lock lock;
   let out = List.mem elt !list in
+  let helper = if out then
+    list := List.remove_assoc (fst elt) !list
+  else () in
+  helper;
   Mutex.unlock lock;
   out
 
@@ -67,10 +71,9 @@ let map kv_pairs map_filename : (string * string) list =
     let helper () =   
       ts_cons pending_list (k, v);
 	      match Worker_manager.map mapper k v with 
-	      | Some l -> (if (ts_mem pending_list (k, v)) then
+	      | Some l -> (if (ts_mem_remove pending_list (k, v)) then
                        ts_append output_list l
                      else ());
-            ts_remove pending_list (k, v);
 						Worker_manager.push_worker work_man mapper;
 	      | None -> ts_remove pending_list (k, v);
           ts_queue_push work_queue (k, v); in
@@ -120,10 +123,9 @@ let reduce kvs_pairs reduce_filename : (string * string list) list =
     let helper () =   
       ts_cons pending_list (k, v_list);
 	      match Worker_manager.reduce reducer k v_list with 
-	      | Some l -> (if (ts_mem pending_list (k, v_list)) then
+	      | Some l -> (if (ts_mem_remove pending_list (k, v_list)) then
                        ts_cons output_list (k, l)
                      else ());
-            ts_remove pending_list (k, v_list);
 						Worker_manager.push_worker work_man reducer;
 	      | None -> ts_remove pending_list (k, v_list);
           ts_queue_push work_queue (k, v_list); in
