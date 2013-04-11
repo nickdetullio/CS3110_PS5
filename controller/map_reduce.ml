@@ -62,9 +62,9 @@ let map kv_pairs map_filename : (string * string) list =
   List.iter (fun e -> Queue.push e (fst work_queue)) kv_pairs;
   
   while not (ts_queue_isempty work_queue) do
+    let mapper = Worker_manager.pop_worker work_man in
+    let (k, v) = ts_queue_pop work_queue in
     let helper () =   
-	    let mapper = Worker_manager.pop_worker work_man in
-	    let (k, v) = ts_queue_pop work_queue in
       ts_cons pending_list (k, v);
 	      match Worker_manager.map mapper k v with 
 	      | Some l -> (if (ts_mem pending_list (k, v)) then
@@ -78,8 +78,8 @@ let map kv_pairs map_filename : (string * string) list =
   done;
   
   while not (ts_list_isempty pending_list) do
+    let mapper = Worker_manager.pop_worker work_man in
     let helper () =
-      let mapper = Worker_manager.pop_worker work_man in
       let (k, v) = ts_pop pending_list in
       match Worker_manager.map mapper k v with
       | Some l -> ts_remove pending_list (k, v);
@@ -115,9 +115,9 @@ let reduce kvs_pairs reduce_filename : (string * string list) list =
   List.iter (fun e -> Queue.push e (fst work_queue)) kvs_pairs;
   
   while not (ts_queue_isempty work_queue) do
+    let reducer = Worker_manager.pop_worker work_man in
+    let (k, v_list) = ts_queue_pop work_queue in
     let helper () =   
-	    let reducer = Worker_manager.pop_worker work_man in
-	    let (k, v_list) = ts_queue_pop work_queue in
       ts_cons pending_list (k, v_list);
 	      match Worker_manager.reduce reducer k v_list with 
 	      | Some l -> (if (ts_mem pending_list (k, v_list)) then
@@ -131,8 +131,8 @@ let reduce kvs_pairs reduce_filename : (string * string list) list =
   done;
   
   while not (ts_list_isempty pending_list) do
+    let reducer = Worker_manager.pop_worker work_man in
     let helper () =
-      let reducer = Worker_manager.pop_worker work_man in
       let (k, v_list) = ts_pop pending_list in
       match Worker_manager.reduce reducer k v_list with
       | Some l -> ts_remove pending_list (k, v_list);

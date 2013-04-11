@@ -82,3 +82,4 @@ apps/dna_sequencing
 .git/logs/refs/heads
 /usr/local/lib/ocaml
 dna_data
+worker_5000
