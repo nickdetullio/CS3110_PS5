@@ -28,6 +28,7 @@ let main (args : string array) : unit =
       List.rev_map (fun d -> (marshal(d.title, d.id), d.body)) docs in
     (* map-reduce 1. TODO implement the mapper and reducer! *)
     let shared_k_mers = map_reduce "step_1_mapper" "step_1_reducer" kv_pairs in
+    
     (* fix up the reduce results to have the right shape for map inputs.
      * For example:
      * [(k1,[v1;v2;v3]); (k2,[v4;v5])]
@@ -38,9 +39,11 @@ let main (args : string array) : unit =
         []
         shared_k_mers
     in
+    
     (* map-reduce 2. TODO implement the mapper and reducer *)
     let exact_short_reads = 
       map_reduce "step_2_mapper" "step_2_reducer" shared_k_mers_split in
+    
     print_short_reads exact_short_reads
 in
 

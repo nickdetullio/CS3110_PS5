@@ -1,6 +1,8 @@
 let marshal_kvs = 
   List.map (fun (k, v) -> (Util.marshal k, Util.marshal v)) in
 
+print_endline "map";
+
 let (key, value) = Program.get_input() in
 let v : (string * int) = Util.unmarshal key in
 let (title, id) = v in

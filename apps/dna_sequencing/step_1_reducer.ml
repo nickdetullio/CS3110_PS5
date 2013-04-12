@@ -1,14 +1,14 @@
-let (key, values) = Program.get_input() in
-	let contains_list = List.fold_left (fun k acc -> let (a, b, c, d) = k in a::acc) [] values in
+let (key, v) = Program.get_input () in
+  let values = List.map Util.unmarshal v in
+	let contains_list = List.map (fun (k, _, _, _) -> k) values in
+  
 	if (List.mem "REF" contains_list && List.mem "READ" contains_list) then
-		(let rec find_ref value_list =
-			match value_list with
-			| (a, b, c, d)::t -> if a = "REF" then (c,d)
-			| [] -> raise Not_Found in
-		let ref_id_index = find_ref values
-		Program.set_output (List.fold_left (fun ele acc -> let (a, b, short_id, short_index) = ele in 
-		if a <> "REF" then (ref_id_index, short_id, short_index)::acc else acc) [] values))
-	else
-		Program.set_output ()
+    begin
+      let (ref, read) = List.partition (fun (a, _, _, _) -> a = "REF") values in
+  		let (_, _, c, d) = List.hd ref in
+  		let out = List.map (fun (_, _, x, y) -> ((c, d), x, y)) values in   
+      Program.set_output (List.map Util.marshal out)
+    end
+	else Program.set_output []
 	
 	
