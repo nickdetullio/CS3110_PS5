@@ -1,0 +1,254 @@
+commit bc816280aa44cff03f5509e7a4e57d756cf61ec7
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Thu Apr 11 23:56:49 2013 -0400
+
+    we are done
+
+commit 7491ff60fc54c67281ca4edace1098a2d2afad27
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Thu Apr 11 21:45:04 2013 -0400
+
+    Implemented dna_sequence
+
+commit 76a192294f1abe96f424b9346c2384f53bd2cdda
+Merge: 3eb147d 8275797
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Thu Apr 11 19:59:40 2013 -0400
+
+    Merge branch 'master' of https://github.com/ndetull/CS3110_Problem_Set_5
+
+commit 82757972399f6ff3d53e22516e9b5b701b2525ab
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Thu Apr 11 19:57:39 2013 -0400
+
+    worker paths
+
+commit 3eb147d9b1569abb253e5642fafd9fc8a1121e12
+Merge: 76db9b3 792cc82
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Thu Apr 11 19:51:01 2013 -0400
+
+    Merge branch 'master' of https://github.com/ndetull/CS3110_Problem_Set_5
+
+commit 76db9b30764827e0639995b6b45ce4b530c655dc
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Thu Apr 11 19:48:06 2013 -0400
+
+    Dna_Sequencing updates
+
+commit 792cc82747d5cbe642664f4a0eaeb669db4a619f
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Thu Apr 11 19:29:59 2013 -0400
+
+    finished and tested game_of_life
+    
+    also fixed stableboard.txt
+
+commit 50751cbd3685259a8775576aed05a9f9555c2c7c
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 23:41:42 2013 -0400
+
+    worker paths
+
+commit c9a0c730989e21ff414ef025e69c83aa9345b881
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Wed Apr 10 23:35:36 2013 -0400
+
+    Finished implementation inverted_index
+
+commit 9a8f1bbfdf2ed386d15271e612967ec43b733807
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 22:22:32 2013 -0400
+
+    fixed and tested map_reduce
+
+commit 8dcfc8302e6d0c5f556f078a7b860279f1fc8f85
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 20:46:31 2013 -0400
+
+    changed all instances of remove to mem_remove
+
+commit 29fbcc440a0e49faff0b4a968a0cd9517525b865
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 20:39:33 2013 -0400
+
+    added ts_mem_remove
+
+commit 06e042141a3c976a2cf75823daa332901f3e7483
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 20:15:33 2013 -0400
+
+    moved mapper and (k, v) outside the helper function
+
+commit f689c9a6e784ba6c6a7c73028a71cb9b49a4fc8c
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Apr 10 18:43:17 2013 -0400
+
+    further synchronized map and reduce
+    
+    added pending_list to keep track of work being done and added
+    threadsafe functions to simplify the code
+
+commit 8929e1a4ef10e51954f31bf0a30fe48001d6c230
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Tue Apr 9 17:27:42 2013 -0400
+
+    reduced length of lines to > 80 chars
+
+commit 84a4ef75c8813b9ff59663a0c96ab96127c04d71
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Tue Apr 9 16:19:21 2013 -0400
+
+    Actually committed inverted_index
+    
+    Ignore previous commit for inverted_index
+
+commit 64671f8dbdcb9d5cfc9b159cc012a4cedbb2f646
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Tue Apr 9 14:51:40 2013 -0400
+
+    changed failwith to return unit
+
+commit 1167d2b9cadef207512e018bdc9b558bc7fb1db6
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Tue Apr 9 13:37:11 2013 -0400
+
+    updated map_reduce, implemented inverted_index
+    
+    Added thread_pool.destroy to methods map and reduce in map_reduce, and
+    implemented mapper, reducer and controller for inverted_index
+
+commit 98bf68766a8356c5b618233594b669913ee9154e
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Tue Apr 9 12:35:38 2013 -0400
+
+    compiled reduce
+
+commit 968bf2d5cff9d06559781c538b7ab36916b67621
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Tue Apr 9 03:34:52 2013 -0400
+
+    compiled worker.ml and map / combine in map_reduce.ml
+
+commit 9f8091a7502c619e2a942cf2cf8864553225e9b4
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Tue Apr 9 00:39:56 2013 -0400
+
+    implemented combine
+
+commit 456caf98511c48589befb9f51a703f13cd93a2be
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Mon Apr 8 23:59:44 2013 -0400
+
+    implemented reduce
+
+commit 8760601ce799831cd448c118918fd18edbbb2841
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Mon Apr 8 23:27:16 2013 -0400
+
+    dealt with match case [None]
+
+commit 9276205bbd9f701e72cc5b928a3112196145fd85
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Mon Apr 8 23:15:51 2013 -0400
+
+    Added mutexes to map_reduce
+
+commit ba041cd5e86e6d41763e18542687a2c100ea7aee
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Mon Apr 8 00:56:42 2013 -0400
+
+    added threadpool
+
+commit 0d97bda2072d4313a676db267ac3369393f50717
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Sun Apr 7 23:39:16 2013 -0400
+
+    started map
+
+commit a16e734ede8b932b75afa396639248a02ee23acf
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Fri Apr 5 04:05:49 2013 -0400
+
+    completed handle_request
+
+commit 230e51082b3ea308b46d196d00897f32b0cd1255
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Sat Mar 30 23:05:55 2013 -0400
+
+    completed and tested hashtable
+
+commit 03ac984a12d67eee31fa2c60a7bcc29969c9b75f
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Fri Mar 29 13:55:29 2013 -0400
+
+    minor gramatical change
+
+commit 40d3e579e08f26e852d565e1accbe32dde0e7948
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Fri Mar 29 13:53:52 2013 -0400
+
+    added dna data files for testing
+
+commit d4c465a242f3e94fa4d4e9382379e2053b8bc6ef
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 21:23:04 2013 -0400
+
+    minor wording changes
+
+commit 5201525cdb088c03520d218e3a41a90cc7b7ace2
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 19:40:34 2013 -0400
+
+    deleted unnecessary call to remove
+
+commit 0ed3d91640eac5a128e59a16df2f488080a7d513
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 19:29:55 2013 -0400
+
+    added comment where element value is required
+
+commit c88dabfcb93a2c924f7ae56fe65e4af66dea7e74
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 19:22:11 2013 -0400
+
+    added a text file for part 1
+
+commit 9fa86b1c12841cce89f666e6e7b1c7a0a7aa95d4
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 19:05:01 2013 -0400
+
+    added calls to the BinaryTree module for add and remove
+
+commit 6589f5988999a02024aba2e14138938c03ce4ec1
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 12:00:45 2013 -0400
+
+    completed base case
+    
+    Elements will be removed, modified by the function and added back to
+    the tree if they are members.
+
+commit be05e71b1dc2b05312a56f230e39b8be04e8d13a
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 03:03:03 2013 -0400
+
+    changed match statement to if then statements
+
+commit 2a3dcbdd1bc6f4f3b83d3f0d17d13c1822773be7
+Author: ndetull <nrd24@cornell.edu>
+Date:   Wed Mar 27 03:51:46 2013 -0300
+
+    Rename CS3110a5pt1.ml to part1.ml
+
+commit 708f2e2b48ca793d3a34c4ed37c531f4ec10fda3
+Author: Chris Cassano <cac366@cornell.edu>
+Date:   Wed Mar 27 02:48:27 2013 -0400
+
+    Part 1 Solution
+
+commit 2e3f6a8df90d49fafbe9e57cdf1f772dc0138652
+Author: Nick De Tullio <nrd24@cornell.edu>
+Date:   Wed Mar 27 01:43:59 2013 -0400
+
+    initial commit
